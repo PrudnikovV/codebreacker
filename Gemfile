@@ -2,4 +2,11 @@
 
 source "https://rubygems.org"
 
-# gem "rails"
+# Specify your gem's dependencies in codebreaker.gemspec
+gem "fasterer"
+gem "overcommit"
+gem "pry"
+gem "rake", "~> 13.0"
+gem "rspec", "~> 3.0"
+gem "rubocop", "~> 1.21"
+gem "simplecov"
