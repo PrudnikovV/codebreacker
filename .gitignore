@@ -10,3 +10,4 @@
 # rspec failure tracking
 .rspec_status
 data.yml
+test_spec.yml
