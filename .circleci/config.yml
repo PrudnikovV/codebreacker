@@ -3,13 +3,12 @@ version: 2.1
 executors:
   default:
     working_directory: ~/repo
-    discription: The official CircleCI Ruby Docker image
     docker:
       - image: cimg/ruby:3.1-browsers
 
 caches:
   - &bundle_cache_full v2-repo- {{ checksum "Gemfile.lock" }}
-  - &bundle_cache c2-repo-
+  - &bundle_cache v2-repo-
 
 commands:
   defaults:
