@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::Game do
-  difficulty = Codebreaker::Difficulty.new("Easy", 15, 2)
-  user = Codebreaker::User.new("Vlad")
-  game = Codebreaker::Game.new(difficulty, user)
+  let(:difficulty) { Codebreaker::Difficulty.new("Easy", 15, 2) }
+  let(:user) { Codebreaker::User.new("Vlad") }
+  let(:game) { Codebreaker::Game.new(difficulty, user) }
 
   it "has a hell hardness" do
     expect(game.remaining_attempts).to be 15

@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::Statistic do
-  difficulty = Codebreaker::Difficulty.new("Easy", 15, 2)
-  user = Codebreaker::User.new("Vlad")
-  game = Codebreaker::Game.new(difficulty, user)
-  winner = Codebreaker::Winner.new("Vlad", difficulty, game)
-  file_storage = "test_spec.yml"
-  statistic = Codebreaker::Statistic.new(file_storage)
-  statistic.winners << winner
+  let(:difficulty) { Codebreaker::Difficulty.new("Easy", 15, 2) }
+  let(:user) { Codebreaker::User.new("Vlad") }
+  let(:game) { Codebreaker::Game.new(difficulty, user) }
+  let(:winner) { Codebreaker::Winner.new("Vlad", difficulty, game) }
+  let(:statistic) { Codebreaker::Statistic.new("spec/entities/test_spec.yml") }
+
   it "has a new winner" do
+    statistic.winners << winner
     expect(statistic.winners.size).to be 1
   end
 
   it "has not a winners" do
+    statistic.winners << winner
     statistic.save
     statistic.winners = []
     expect(statistic.winners.size).to be 0
@@ -22,5 +23,4 @@ RSpec.describe Codebreaker::Statistic do
     statistic.load
     expect(statistic.winners.size).to be 1
   end
-  FileUtils.rm_f(file_storage)
 end

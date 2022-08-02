@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::Winner do
+  let(:difficulty) { Codebreaker::Difficulty.new("Easy", 15, 2) }
+  let(:user) { Codebreaker::User.new("Vlad") }
+  let(:game) { Codebreaker::Game.new(difficulty, user) }
+  let(:winner) { Codebreaker::Winner.new("Vlad", difficulty, game) }
   it "has a winner" do
-    difficulty = Codebreaker::Difficulty.new("Easy", 15, 2)
-    user = Codebreaker::User.new("Vlad")
-    game = Codebreaker::Game.new(difficulty, user)
-    winner = Codebreaker::Winner.new("Vlad", difficulty, game)
     expect(winner.name).to be "Vlad"
   end
 end

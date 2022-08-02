@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::Validation do
-  validation = Codebreaker::Validation.new
+  let(:validation) { Codebreaker::Validation.new }
   it "has a name longer then 3 and less than 20" do
     expect(validation.name_valid?("vl")).to be false
     expect(validation.name_valid?("vladimir")).to be true

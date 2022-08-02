@@ -1,8 +1,0 @@
----
-- !ruby/object:Codebreaker::Winner
-  name: Vlad
-  difficulty: Easy
-  attempts: 15
-  hints: 2
-  attempts_used: 0
-  hints_used: 0
