@@ -1,0 +1,37 @@
+version: 2.1
+
+executers:
+  default:
+    working_directory: ~/repo
+    discription: The official CircleCI Ruby Docker image
+    docker:
+      - image: circleci/ruby:3.1.2
+
+caches:
+  - &bundle_cache_full v2-repo- {{ checksum "Gemfile.lock" }}
+  - &bundle_cache c2-repo-
+
+commands:
+  defaults:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - *bundle_cache_full
+            - *bundle_cache
+      - run: bundle install --path vendor/bundle_cache
+      - save_cache:
+          key: *bundle_cache_full
+          paths:
+            - vendor/bundle_cache
+jobs:
+  lintering:
+    executer: default
+    steps:
+      - defaults
+      
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - lintering
