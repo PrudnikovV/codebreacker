@@ -1,6 +1,6 @@
 version: 2.1
 
-executers:
+executors:
   default:
     working_directory: ~/repo
     discription: The official CircleCI Ruby Docker image
@@ -26,12 +26,11 @@ commands:
             - vendor/bundle_cache
 jobs:
   lintering:
-    executer: default
+    executor: default
     steps:
       - defaults
       
 workflows:
-  version: 2.1
   build:
     jobs:
       - lintering
