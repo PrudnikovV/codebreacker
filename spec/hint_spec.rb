@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
+require "shared_stuff"
 RSpec.describe Codebreaker::Hint do
-  let(:difficulty) { Codebreaker::Difficulty.new("Easy", 15, 2) }
-  let(:user) { Codebreaker::User.new("Vlad") }
-  let(:game) { Codebreaker::Game.new(difficulty, user) }
+  include_context "shared stuff"
+
   let(:hint) { Codebreaker::Hint.new(game) }
   it "has a hint from code" do
     hint = Codebreaker::Hint.new(game)

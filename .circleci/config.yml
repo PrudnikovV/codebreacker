@@ -4,7 +4,7 @@ executors:
   default:
     working_directory: ~/repo
     docker:
-      - image: cimg/ruby:3.1-browsers
+      - image: cimg/ruby:3.1.2
 
 caches:
   - &bundle_cache_full v2-repo- {{ checksum "Gemfile.lock" }}
@@ -59,3 +59,4 @@ workflows:
       - run_specs:
           requires:
             - lintering
+            

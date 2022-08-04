@@ -5,20 +5,23 @@ module Codebreaker
   class Attempt
     attr_reader :result, :attempt_code, :secret_code
 
+    SAME_POSITION = "+"
+    OTHER_POSITION = "-"
+
     def initialize(attempt_code, secret_code)
       @attempt_code = attempt_code
       @secret_code = secret_code
-      colculation
+      calculation
     end
 
-    def colculation
-      @result = @attempt_code.select.with_index { |e, i| e == @secret_code[i] }.map { "+" }
-      @result += ["-"] * (@attempt_code.uniq.map { |e| min_quentyty(e) }.sum - result.count)
+    def calculation
+      @result = @attempt_code.select.with_index { |e, i| e == @secret_code[i] }.map { SAME_POSITION }
+      @result += [OTHER_POSITION] * (@attempt_code.uniq.map { |e| min_quantity(e) }.sum - result.count)
     end
 
     private
 
-    def min_quentyty(elm)
+    def min_quantity(elm)
       [@attempt_code.count(elm), @secret_code.count(elm)].min
     end
   end

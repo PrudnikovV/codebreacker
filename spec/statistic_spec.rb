@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
+require "shared_stuff"
+
 RSpec.describe Codebreaker::Statistic do
-  let(:difficulty) { Codebreaker::Difficulty.new("Easy", 15, 2) }
-  let(:user) { Codebreaker::User.new("Vlad") }
-  let(:game) { Codebreaker::Game.new(difficulty, user) }
-  let(:winner) { Codebreaker::Winner.new("Vlad", difficulty, game) }
+  include_context "shared stuff"
   let(:statistic) { Codebreaker::Statistic.new("spec/entities/test_spec.yml") }
 
   it "has a new winner" do

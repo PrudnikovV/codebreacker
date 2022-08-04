@@ -5,6 +5,9 @@ module Codebreaker
   class Game
     attr_reader :attempts, :hints, :remaining_attempts, :remaining_hints, :code
 
+    DIGITS_RANGE = (1..6).freeze
+    QUANTITY_DIGITS = 4
+
     def initialize(difficulty, user)
       @remaining_attempts = difficulty.attempts
       @remaining_hints = difficulty.hints
@@ -42,7 +45,7 @@ module Codebreaker
     end
 
     def new_secret_code
-      Array.new(4) { rand(1..6) }
+      Array.new(QUANTITY_DIGITS) { rand(DIGITS_RANGE) }
     end
   end
 end
