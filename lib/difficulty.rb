@@ -5,7 +5,7 @@ module Codebreaker
   class Difficulty
     attr_reader :attempts, :hints, :name
 
-    DEFAULT_DIFFICULTY =
+    STANDART_DIFFICULTIES =
       { easy: { attempts: 15, hints: 2 },
         medium: { attempts: 10, hints: 1 },
         hell: { attempts: 5, hints: 1 } }.freeze
@@ -16,7 +16,7 @@ module Codebreaker
     end
 
     def set_count_of_steps
-      selected = DEFAULT_DIFFICULTY[@name.to_sym]
+      selected = STANDART_DIFFICULTIES[@name.to_sym]
       @attempts = selected[:attempts]
       @hints = selected[:hints]
     end
