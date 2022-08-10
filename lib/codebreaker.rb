@@ -3,6 +3,6 @@
 require_relative("autoload")
 
 module Codebreaker
-  class Error < StandardError; end
+  class CodebreakerError < StandardError; end
   # Your code goes here...
 end
