@@ -19,14 +19,18 @@ RSpec.describe Codebreaker::Game do
   end
 
   it "has down by one remaining_attempts when add a attempt" do
-    attempt = Codebreaker::Attempt.new([1, 2, 5, 4], game.code)
-    game.add_step(attempt)
+    game.attempt([1, 2, 5, 4])
     expect(game.remaining_attempts).to be 14
   end
 
   it "has down by one remaining_hints when add a remaining_hint" do
-    hint = Codebreaker::Hint.new(game)
-    game.add_step(hint)
+    game.hint
     expect(game.remaining_hints).to be 1
+  end
+
+  it "has save statistic" do
+    stub_const("Codebreaker::Game::STATISTIC_FILE", "spec/entities/test_spec.yml")
+    game.save_statistic
+    expect(Codebreaker::Game.load_statistic.winners.size).to be 2
   end
 end

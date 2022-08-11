@@ -3,12 +3,12 @@
 module Codebreaker
   # class for Hint
   class Hint
-    attr_reader :digit
+    attr_reader :result
 
     def initialize(game)
       code_dup = game.code.clone
       game.hints.each { |hint| code_dup.delete_at(code_dup.index(hint.digit)) }
-      @digit = code_dup.sample
+      @result = code_dup.sample
     end
   end
 end

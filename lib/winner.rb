@@ -5,11 +5,11 @@ module Codebreaker
   class Winner
     attr_reader :name, :difficulty, :attempts_used, :hints_used, :attempts, :hints
 
-    def initialize(name, difficulty, game)
+    def initialize(name, game)
       @name = name
-      @difficulty = difficulty.name
-      @attempts = difficulty.attempts
-      @hints = difficulty.hints
+      @difficulty = game.difficulty.name
+      @attempts = game.difficulty.attempts
+      @hints = game.difficulty.hints
       @attempts_used = game.attempts.size
       @hints_used = game.hints.size
     end

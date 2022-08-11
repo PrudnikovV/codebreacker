@@ -2,7 +2,7 @@
 
 require "simplecov"
 SimpleCov.start
-require_relative "../autoload"
+require_relative "../lib/autoload"
 
 RSpec.describe Codebreaker do
   RSpec.configure do |config|

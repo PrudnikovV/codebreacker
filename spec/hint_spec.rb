@@ -6,7 +6,6 @@ RSpec.describe Codebreaker::Hint do
 
   let(:hint) { Codebreaker::Hint.new(game) }
   it "has a hint from code" do
-    hint = Codebreaker::Hint.new(game)
-    expect(game.code.include?(hint.digit)).to be true
+    expect(game.code.include?(hint.result)).to be true
   end
 end

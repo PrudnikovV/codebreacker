@@ -3,25 +3,37 @@
 module Codebreaker
   # class for Game
   class Game
-    attr_reader :attempts, :hints, :remaining_attempts, :remaining_hints, :code
+    attr_reader :attempts, :hints, :remaining_attempts, :remaining_hints, :code, :difficulty, :user
 
     DIGITS_RANGE = (1..6).freeze
     QUANTITY_DIGITS = 4
+    STATISTIC_FILE = "data/winners.yml"
 
-    def initialize(difficulty, user)
-      @remaining_attempts = difficulty.attempts
-      @remaining_hints = difficulty.hints
+    def initialize()
       @code = new_secret_code
       @attempts = []
       @hints = []
-      @user = user
     end
 
-    def add_step(step)
-      case step
-      when Codebreaker::Hint then hint(step)
-      when Codebreaker::Attempt then attempt(step)
-      end
+    def next_step
+      return :win if win?
+      return :loose if loose?
+      return :attempt if @remaining_hints == 0
+      [:attempt, :hint]
+    end
+
+    def set_difficulty(choice)
+      @difficulty = Codebreaker::Difficulty.new(choice)
+      @remaining_attempts = @difficulty.attempts
+      @remaining_hints = @difficulty.hints
+    end
+
+    def get_standart_difficulties
+      Codebreaker::Difficulty::STANDART_DIFFICULTIES.keys.join(", ")
+    end
+
+    def user(name)
+      @user = Codebreaker::User.new(name)
     end
 
     def win?
@@ -32,16 +44,38 @@ module Codebreaker
       @remaining_attempts.zero?
     end
 
-    private
-
-    def attempt(attempt)
-      @attempts << attempt
-      @remaining_attempts -= 1
+    def validate?(data)
+      case data
+      when String then Codebreaker::Validation.new.name_valid?(data)
+      else Codebreaker::Validation.new.number_valid?(data)
+      end
     end
 
-    def hint(hint)
+    def self.load_statistic
+      statistic = Codebreaker::Statistic.new(STATISTIC_FILE)
+      statistic.load
+      statistic
+    end
+
+    def save_statistic
+      winner = Codebreaker::Winner.new(@user.name, self)
+      statistic = Codebreaker::Game::load_statistic
+      statistic.winners << winner
+      statistic.save
+    end
+
+    def attempt(user_code)
+      attempt = Codebreaker::Attempt.new(user_code, @code)
+      @attempts << attempt
+      @remaining_attempts -= 1
+      attempt.result
+    end
+
+    def hint
+      hint = Codebreaker::Hint.new(self)
       @hints << hint
       @remaining_hints -= 1
+      hint.result
     end
 
     def new_secret_code
