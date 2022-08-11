@@ -9,7 +9,7 @@ module Codebreaker
     QUANTITY_DIGITS = 4
     STATISTIC_FILE = "data/winners.yml"
 
-    def initialize()
+    def initialize
       @code = new_secret_code
       @attempts = []
       @hints = []
@@ -18,21 +18,22 @@ module Codebreaker
     def next_step
       return :win if win?
       return :loose if loose?
-      return :attempt if @remaining_hints == 0
-      [:attempt, :hint]
+      return :attempt if @remaining_hints.zero?
+
+      %i[attempt hint]
     end
 
-    def set_difficulty(choice)
+    def difficulty_init(choice)
       @difficulty = Codebreaker::Difficulty.new(choice)
       @remaining_attempts = @difficulty.attempts
       @remaining_hints = @difficulty.hints
     end
 
-    def get_standart_difficulties
+    def standart_difficulties
       Codebreaker::Difficulty::STANDART_DIFFICULTIES.keys.join(", ")
     end
 
-    def user(name)
+    def user_init(name)
       @user = Codebreaker::User.new(name)
     end
 
@@ -59,7 +60,7 @@ module Codebreaker
 
     def save_statistic
       winner = Codebreaker::Winner.new(@user.name, self)
-      statistic = Codebreaker::Game::load_statistic
+      statistic = Codebreaker::Game.load_statistic
       statistic.winners << winner
       statistic.save
     end
