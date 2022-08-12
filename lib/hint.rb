@@ -7,7 +7,7 @@ module Codebreaker
 
     def initialize(game)
       code_dup = game.code.clone
-      game.hints.each { |hint| code_dup.delete_at(code_dup.index(hint.digit)) }
+      game.hints.each { |hint| code_dup.delete_at(code_dup.index(hint.result)) }
       @result = code_dup.sample
     end
   end
