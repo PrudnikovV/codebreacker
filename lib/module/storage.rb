@@ -8,7 +8,8 @@ module Codebreaker
 
       file = File.open(file_store, "r")
       data = YAML.safe_load(file, aliases: true, permitted_classes: [Winner, Difficulty])
-      self.winners = data
+      self.winners = []
+      self.winners << data unless data.nil?
       file.close
     end
 
